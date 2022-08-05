@@ -1,0 +1,45 @@
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    env_file:
+      - ./config/.env.app
+    volumes:
+      - static_volume:/app/web/staticfiles/
+    depends_on:
+      - redis
+      - es
+    expose:
+      - 8000
+
+  redis:
+    image: redis:7.0.1
+    expose:
+      - 6379
+
+  es:
+    image: elasticsearch:7.14.0
+    env_file:
+      - ./config/.env.es
+    expose:
+      - 9200
+#    volumes:
+#      - $HOME/elasticsearch/data:/usr/share/elasticsearch/data
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 3G
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/app/web/staticfiles/
+    ports:
+      - 80:80
+    depends_on:
+      - app
+
+volumes:
+  static_volume:

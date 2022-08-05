@@ -1,0 +1,33 @@
+version: '3'
+
+tasks:
+  rebuild:
+    cmds:
+      - docker-compose down -v
+      - docker-compose up --build
+  run:
+    cmds:
+      - docker-compose down -v
+      - docker-compose up -d --build
+      - docker-compose exec app /bin/bash
+  up:
+    cmds:
+      - docker-compose up -d --build
+  build:
+    cmds:
+      - docker-compose build
+  start:
+    cmds:
+      - docker-compose start
+  down:
+    cmds:
+      - docker-compose down
+  destroy:
+    cmds:
+      - docker-compose down -v
+  stop:
+    cmds:
+      - docker-compose stop
+  logs:
+    cmds:
+      - docker-compose logs --tail=100 -f
