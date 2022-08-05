@@ -25,4 +25,4 @@ http://0.0.0.0/api/openapi
 
 ## Stack:
 
-Async FastAPI, Elasticsearch, Docker Compose, Redis
+Async FastAPI, Elasticsearch, Docker Compose, Redis, Nginx
